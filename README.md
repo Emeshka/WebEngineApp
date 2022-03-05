@@ -141,6 +141,7 @@ The `setGlobal(Object what, String variableName)` method, as already mentioned, 
 The bug is fixed in the new version of JDK9 with the latest fixes.
 
 class *Accessory*
+
 A set of static methods to display all kinds of messages.
 
 		public static int alert(String text)

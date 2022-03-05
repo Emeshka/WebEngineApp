@@ -7,121 +7,121 @@ The library consists of several classes:
 
 class *Application*
 
-private static JFrame window
+		private static JFrame window
 
-		- the window frame
+- the window frame
 		
-public static WebView wv
+		public static WebView wv
 
-		- the WebView component, in which HTML-page content is stored.
+- the WebView component, in which HTML-page content is stored.
 		
-public static WebEngine engine
+		public static WebEngine engine
 
-  		- the JS engine.
+ - the JS engine.
     
-public static Bridge bridge
+		public static Bridge bridge
 
-		- the Java-JS bridge.
+- the Java-JS bridge.
 		
-private static final String PAGE = "gui.html";
+		private static final String PAGE = "gui.html";
 
-		- first page GUI.
+- first page GUI.
 		
-private HashMap<String, Function<String, Integer>> handlers = new HashMap<>();
+		private HashMap<String, Function<String, Integer>> handlers = new HashMap<>();
 
-		- template messages handlers, transfered with builtin JS alert() function.
+- template messages handlers, transfered with builtin JS alert() function.
 		
-private boolean askOnExit = true;
+		private boolean askOnExit = true;
 
-		- to prompt on closing.
+- to prompt on closing.
 		
-private int WIDTH = 800;
+		private int WIDTH = 800;
 
-		- the window width.
+- the window width.
 		
-private int HEIGHT = 700;
+		private int HEIGHT = 700;
 
-		- the window height.
+- the window height.
 		
-private String TITLE = "";
+		private String TITLE = "";
 
-		- the window title.
+- the window title.
 
-public JFrame getWindow()
+		public JFrame getWindow()
 
-    - getter for window.
+- getter for window.
     
-public WebView getWv()
+		public WebView getWv()
 
-    - getter for WebView object.
+- getter for WebView object.
     
-public WebEngine getEngine()
+		public WebEngine getEngine()
 
-    - getter for Javascript engine.
+- getter for Javascript engine.
     
-public Bridge getBridge()
+		public Bridge getBridge()
 
-    - getter for the bridge.
+- getter for the bridge.
     
-public String getPage()
+		public String getPage()
 
-    - getter for the current web-page URL.
+- getter for the current web-page URL.
     
-public String getTitle()
+		public String getTitle()
 
-    - getter for the current window title.
+- getter for the current window title.
 
-public void setTitle(String title)
+		public void setTitle(String title)
 
-    - setter for the window title
+- setter for the window title
     
-public void setSize(int width, int height)
+		public void setSize(int width, int height)
 
-    - setter for the window size.
+- setter for the window size.
     
-public void addAlertHandler(String key, Function<String, Integer> handler)
+		public void addAlertHandler(String key, Function<String, Integer> handler)
 
-    - add a template message handler (messages that are transfered with builtin JS alert() function)
+- add a template message handler (messages that are transfered with builtin JS alert() function)
     
-public Function<String, Integer> removeAlertHandler(String key)
+		public Function<String, Integer> removeAlertHandler(String key)
 
-    - remove a template message handler by its key.
+- remove a template message handler by its key.
     
-public boolean getAskOnExit()
+		public boolean getAskOnExit()
 
-    - getter for askOnExit
+- getter for askOnExit
     
-public void setAskOnExit(boolean askOnExit)
+		public void setAskOnExit(boolean askOnExit)
 
-    - setter for askOnExit
+- setter for askOnExit
     
-public void setGlobal(Object what, String variableName)
+		public void setGlobal(Object what, String variableName)
 
-    - convert `what` to JSON and set as a global variable in the current Engine with a name `variableName`. One of the possible applications of this method is an `executeScript()` bug avoidance (see below)
+- convert `what` to JSON and set as a global variable in the current Engine with a name `variableName`. One of the possible applications of this method is an `executeScript()` bug avoidance (see below)
     
-public Object call(String function, Object ... args)
+		public Object call(String function, Object ... args)
 
-    - call a globally available JS function `function`() with given set of arguments. The arguments should be ordered in the same way as JS `function`() expects. All arguments dependless of their respective types, will be converted to JSON. Can cause a crash due to `executeScript()` bug (see below)
+- call a globally available JS function `function`() with given set of arguments. The arguments should be ordered in the same way as JS `function`() expects. All arguments dependless of their respective types, will be converted to JSON. Can cause a crash due to `executeScript()` bug (see below)
     
-(!) public void debug()
+		(!) public void debug()
 
-    - a method was intended to be an inbuilt debugging help, an integration of Firebug lite in the library itself, because the Java WebEngine WebKit has its unique set of peculiarities when it comes to layout & CSS displaying, but I couldn't make it working. I suppose because Firebug Lite project is suspended (my question on Stack Overflow https://stackoverflow.com/questions/50669070/javafx-webengine-fail-to-load-firebug-lite-js-that-is-stored-locally)
+- a method was intended to be an inbuilt debugging help, an integration of Firebug lite in the library itself, because the Java WebEngine WebKit has its unique set of peculiarities when it comes to layout & CSS displaying, but I couldn't make it working. I suppose because Firebug Lite project is suspended (my question on Stack Overflow https://stackoverflow.com/questions/50669070/javafx-webengine-fail-to-load-firebug-lite-js-that-is-stored-locally)
     
-public void loadPage(File f)
+		public void loadPage(File f)
 
-    - load a page from a file
+- load a page from a file
     
-public void test()
+		public void test()
 
-    - a set of basic tests to make sure that JS-Java bridge is working. Apply it only in the early beginning of your project, when you cannot be sure of this still, because it modifies the page.
+- a set of basic tests to make sure that JS-Java bridge is working. Apply it only in the early beginning of your project, when you cannot be sure of this still, because it modifies the page.
     
-public void run()
+		public void run()
 
-    - run the Application object: create a window with WebView and set up a listener on window closing, set listeners for `alert`, `confirm`, `prompt`, on file loading error, set window size and load HTML from `page`.
+- run the Application object: create a window with WebView and set up a listener on window closing, set listeners for `alert`, `confirm`, `prompt`, on file loading error, set window size and load HTML from `page`.
     
-public Application(@NotNull String title, @NotNull String firstPage, int width, int height, @NotNull Bridge a)
+		public Application(@NotNull String title, @NotNull String firstPage, int width, int height, @NotNull Bridge a)
 
-    - the constructor: window title, the starting GUI page URL, window width&height and a Bridge object. Does not run the Application, only creates it.
+- the constructor: window title, the starting GUI page URL, window width&height and a Bridge object. Does not run the Application, only creates it.
 
 To transfer data from JS to Java, JSON is used, because the JS can pass all simple types (numbers, booleans) and strings. Since we are working with an array, we need to convert it to a string according to the JSON format.
 
@@ -143,36 +143,51 @@ The bug is fixed in the new version of JDK9 with the latest fixes.
 class *Accessory*
 A set of static methods to display all kinds of messages.
 
-public static int alert(String text)
-    - a simple popup window with 'OK' button only.
-public static boolean ask(String text)
-    - a popup window with 'Yes' and 'No' options (JS `confirm`). Returns the user's choice.
-public static String prompt(String text)
-    - a popup that prompts user for some input. The popup contains the message, an input field and 2 buttons: 'OK' and 'Cancel'. .
-public static int alert(Exception e, String comment)
-    - alert user about a Java Exception.
-public static int alert(WebErrorEvent e, String comment)
-    - same, but with WebErrorEvent class.
-protected static String text(WebErrorEvent e, String comment)
-    - create a text message to display on the page from WebErrorEvent and a string message.
-protected static String text(Exception e, String comment)
-    - same, but with Java Exception class.
-protected static String style(String text, String css, String tag)
-    - a method to style messages. I haven't got a need to make it public, but it can be made.
+		public static int alert(String text)
+		
+- a simple popup window with 'OK' button only.
+
+		public static boolean ask(String text)
+		
+- a popup window with 'Yes' and 'No' options (JS `confirm`). Returns the user's choice.
+
+		public static String prompt(String text)
+		
+- a popup that prompts user for some input. The popup contains the message, an input field and 2 buttons: 'OK' and 'Cancel'.
+
+		public static int alert(Exception e, String comment)
+
+- alert user about a Java Exception.
+
+		public static int alert(WebErrorEvent e, String comment)
+		
+- same, but with WebErrorEvent class
+
+		protected static String text(WebErrorEvent e, String comment)
+		
+- create a text message to display on the page from WebErrorEvent and a string message.
+
+		protected static String text(Exception e, String comment)
+		
+- same, but with Java Exception class.
+
+		protected static String style(String text, String css, String tag)
+		
+- a method to style messages. I haven't got a need to make it public, but it can be made.
 
 interface *Bridge*
 
 Defines a basic Bridge interface. Custom Bridges can be made based on it.
 
-void alert(String s);
+		void alert(String s);
 
-boolean confirm(String s);
+		boolean confirm(String s);
 
-String prompt(String s);
+		String prompt(String s);
 
-String prompt(PromptData pd);
+		String prompt(PromptData pd);
 
-void exit();
+		void exit();
 
 As you can see, these basic functions `alert`, `confirm`, `prompt` (a pair of them, because `prompt` can be called with an additional parameter `defaultValue`, in this case Java converts it into PromptData and calls the second overload), and a close app function.
 
